@@ -1,0 +1,14 @@
+<section class="section home">
+    <app-header></app-header>
+    <div class="outer-div">
+        <div class="cards" (click)="redirect('discussion')">
+            <p>Discussion Thread</p> <img src="../../assets/images/discussionThread.png" />
+        </div>
+        <div class="cards" (click)="redirect('message')">
+            <p> Messaging </p> <img src="../../assets/images/messaging-icon.jpg" />
+        </div>
+        <div class="cards" (click)="redirect('blog')">
+            <p> Blog Thread </p> <img src="../../assets/images/blog-icon.jpg" />
+        </div>
+    </div>
+</section>

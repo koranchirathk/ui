@@ -1,0 +1,30 @@
+header {
+    margin: 0px 10px;
+}
+.heading {
+    font-size: 1.75rem;
+    font-weight: 500;
+    display: contents;
+    color: darkblue;
+}
+.user-icon {
+    float: right;
+}
+.avatar {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}
+.username {
+    margin-right: 15px;
+    color: darkblue;
+}
+.logout {
+    color: brown;
+    cursor: pointer;
+}
+.homelink {
+    margin-right: 15px;
+    padding: 4px 10px;
+    cursor: pointer;
+}

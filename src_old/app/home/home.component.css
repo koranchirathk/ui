@@ -1,0 +1,28 @@
+.outer-div {
+    display: flex;
+    width: 70%;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    line-height: 50px;
+}
+.outer-div > .cards {
+    /* box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12); */
+    border: 1px solid #ccc;
+    transition: box-shadow .3s;
+    border-radius: 6px;
+    width:inherit;
+    margin:15px;
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+.outer-div > .cards > img {
+    width: inherit;
+}
+.cards:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.5);
+}
+a {
+    text-decoration: none;
+}
