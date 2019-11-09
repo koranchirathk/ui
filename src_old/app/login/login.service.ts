@@ -9,14 +9,18 @@ import { throwError } from 'rxjs';
 })
 export class LoginService {
   apiURL: string = environment.baseUrl;
-moduleURL: string = 'restapi/v1' 
+  moduleURL: string = 'users';
   constructor(private httpClient: HttpClient) { }
+
   public verifyUser(userDetails) {
-    return this.httpClient.post(this.apiURL + this.moduleURL + '/getusers', userDetails).pipe(catchError(this.handleError))
+    return this.httpClient
+      .post(this.apiURL + this.moduleURL + '/user', userDetails)
+      .pipe(catchError(this.handleError));
   }
-  handleError(error:any) {
-    let errorMessage= '';
-    if(error.error instanceof ErrorEvent) {
+
+  handleError(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
       errorMessage = `Error:${error.error.message}`;
     } else {
       errorMessage = `Error Code:${error.status}\nMessage: ${error.message}`;

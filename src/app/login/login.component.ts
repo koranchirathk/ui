@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private storage: StorageService ) {
-      // if user has logged in redirect to home page
-      if (this.authenticationService.currentUserDetails) {
-          this.router.navigate(['/']);
-      }
+    private storage: StorageService) {
+    // if user has logged in redirect to home page
+    if (this.authenticationService.currentUserDetails) {
+      this.router.navigate(['/']);
     }
+  }
 
   public loginForm: FormGroup;
   public submitted = false;
@@ -50,13 +50,18 @@ export class LoginComponent implements OnInit {
       return;
     }
     console.log(this.form.username.value, this.form.password.value);
-    const user = new User();
-    user.firstName = 'Test';
-    user.lastName = 'User';
-    user.userId = '123Test456';
-    user.groups = [22, 33, 44];
-    user.contacts = ['123Test_1456', '123Test_2456'];
-    this.userData = user;
+    // const user = new User();
+    // user.firstName = 'Test';
+    // user.lastName = 'User';
+    // user.userId = '123Test456';
+    // user.groups = [22, 33, 44];
+    // user.contacts = ['123Test_1456', '123Test_2456'];
+    // this.userData = user;
+    this.authenticationService.login(this.form.username.value, this.form.password.value)
+      .subscribe((data: any) => {
+        this.userData = data;
+        console.log(data);
+      });
     this.storage.setUserDetails(this.userData);
     this.router.navigate(['/home']);
   }
