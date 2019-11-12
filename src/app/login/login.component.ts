@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication-service.service';
 import { StorageService } from '../services/storage-service';
-import { first } from 'rxjs/operators';
 import { User } from '../model/user';
 
 @Component({
@@ -60,9 +59,10 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.form.username.value, this.form.password.value)
       .subscribe((data: any) => {
         this.userData = data;
+        this.router.navigate(['/home']);
         console.log(data);
       });
     this.storage.setUserDetails(this.userData);
-    this.router.navigate(['/home']);
+    // this.router.navigate(['/home']);
   }
 }

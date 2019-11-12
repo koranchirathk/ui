@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -11,28 +11,37 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
 
   apiURL: string = environment.baseUrl;
-  moduleURL: string = 'oauth';
+  moduleURL = 'oauth';
   currentUserDetails: any = {};
   constructor(private router: Router, private httpClient: HttpClient) { }
 
   login(username: string, password: string) {
-    // need to call service to get user validation
-    // if (username && password) {
-    //   return this.currentUserDetails;
-    // }
+    const headers = {
+      headers: {
+        Authorization: `Basic ${btoa('rokin-client:secret')}`,
+        'Content-Type': 'application/x-www-form-urlencoded;'
+      }
+    };
+
+    const body = new URLSearchParams();
+    body.set('grant_type', 'password');
+    body.set('username', username);
+    body.set('password', password);
 
     return this.httpClient
-      .post(this.apiURL + this.moduleURL + '/token', { username, password })
+      .post(`${this.apiURL}${this.moduleURL}/token`, body.toString(), headers)
       .pipe(catchError(this.handleError));
   }
 
   handleError(error: any) {
     let errorMessage = '';
+    console.log(error);
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error:${error.error.message}`;
     } else {
       errorMessage = `Error Code:${error.status}\nMessage: ${error.message}`;
     }
+    alert('Enter proper credentials.');
     return throwError(errorMessage);
   }
 

@@ -8,13 +8,14 @@ export class StorageService {
 
   constructor() { }
 
-    // store user details
-    setUserDetails(userDetails: User) {
-        sessionStorage.setItem('UserDetails', JSON.stringify(userDetails));
-    }
+  // store user details
+  setUserDetails(userDetails: User) {
+    sessionStorage.setItem('UserDetails', JSON.stringify(userDetails));
+  }
 
-    getUserDetails() {
-        const userDetails = sessionStorage.getItem('UserDetails');
-        return userDetails ? JSON.parse(userDetails) : '';
-    }
+  getUserDetails() {
+    const userDetails = sessionStorage.getItem('UserDetails');
+    return 'tests';
+    //return userDetails ? JSON.parse(userDetails) : '';
+  }
 }

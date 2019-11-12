@@ -17,12 +17,12 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    const user = this.storage.getUserDetails();
-    if (user && user.firstName) {
-      this.userName = user.firstName;
-    } else {
-      this.router.navigate(['/']);
-    }
+    // const user = this.storage.getUserDetails();
+    // if (user && user.firstName) {
+    //   this.userName = user.firstName;
+    // } else {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   // Redirect to home

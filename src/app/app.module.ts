@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,7 @@ import { DiscussionComponent } from './discussion/discussion.component';
 import { BlogComponent } from './blog/blog.component';
 import { MessageComponent } from './message/message.component';
 import { HeaderComponent } from './header/header.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { HeaderComponent } from './header/header.component';
     DiscussionComponent,
     BlogComponent,
     MessageComponent,
-    HeaderComponent
+    HeaderComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]

@@ -1,0 +1,17 @@
+.group-list {
+    margin-top: 20px;
+}
+
+.group-list table tbody tr td,
+.group-list table thead tr th {
+    vertical-align: middle;
+}
+
+.group-list table tbody tr td p {
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+
+.modal-body p input {
+    padding: 1px 5px;
+}
