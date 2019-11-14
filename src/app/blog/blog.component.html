@@ -2,5 +2,26 @@
     <app-header></app-header>
     <div>
         <h4>Blog</h4>
+        <div *ngFor="let b of blogs; let index = index">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{b.blogTitle}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{b.blogId}}</h6>
+                    <p class="card-text">{{b.body}}</p>
+                    <a class="card-link">Comments</a>
+                    <div class="list-of-comment">
+                        <ul>
+                            <li *ngFor="let c of b.comments">
+                                {{c}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="comment-footer">
+                        <textarea [(ngModel)]="b.comment" placeholder="Please Comment Here" required></textarea>
+                        <button class="btn btn-success" (click)="saveComment(index)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

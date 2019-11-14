@@ -15,7 +15,6 @@ export class StorageService {
 
   getUserDetails() {
     const userDetails = sessionStorage.getItem('UserDetails');
-    return 'tests';
-    //return userDetails ? JSON.parse(userDetails) : '';
+    return userDetails ? JSON.parse(userDetails) : '';
   }
 }
