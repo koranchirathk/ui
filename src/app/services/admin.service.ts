@@ -18,7 +18,7 @@ export class AdminService {
   getAllGroups(accessToken: string) {
     const headers = {
       headers: {
-        Authorization: `Basic ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json;'
       }
     };
@@ -31,7 +31,7 @@ export class AdminService {
   updateTheGroup(accessToken: string, groupDetails: any) {
     const headers = {
       headers: {
-        Authorization: `Basic ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json;'
       }
     };
@@ -44,7 +44,7 @@ export class AdminService {
   addGroup(accessToken: string, groupDetails: any) {
     const headers = {
       headers: {
-        Authorization: `Basic ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json;'
       }
     };
@@ -57,7 +57,7 @@ export class AdminService {
   deleteGroup(accessToken: string, groupName: string) {
     const headers = {
       headers: {
-        Authorization: `Basic ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json;'
       }
     };
@@ -75,6 +75,7 @@ export class AdminService {
     } else {
       errorMessage = `Error Code:${error.status}\nMessage: ${error.message}`;
     }
+    this.router.navigate(['/']);
     return throwError(errorMessage);
   }
 }

@@ -1,38 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../services/storage-service';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication-service.service';
+import { Component, OnInit } from "@angular/core";
+import { StorageService } from "../services/storage-service";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../services/authentication-service.service";
+import { User } from "../model/user";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.css"]
 })
 export class HeaderComponent implements OnInit {
-
+  public userData: User;
   public userName: string;
   constructor(
     private storage: StorageService,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
-    const user = this.storage.getUserDetails();
-    if (user && user.firstName) {
-      this.userName = user.firstName;
+    this.userData = this.storage.getUserDetails();
+    if (this.userData && this.userData.username) {
+      this.userName = this.userData.username;
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(["/"]);
     }
   }
 
   // Redirect to home
   goToHome() {
-    this.router.navigate(['home']);
+    this.router.navigate(["home"]);
   }
 
   // On log out
   logout() {
     this.authenticationService.logout();
   }
-
 }

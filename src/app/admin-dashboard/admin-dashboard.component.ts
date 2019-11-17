@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { AdminService } from '../services/admin.service';
-import { StorageService } from '../services/storage-service';
+import { AdminService } from "../services/admin.service";
+import { StorageService } from "../services/storage-service";
+import { User } from "../model/user";
 
 @Component({
   selector: "app-admin-dashboard",
@@ -8,7 +9,6 @@ import { StorageService } from '../services/storage-service';
   styleUrls: ["./admin-dashboard.component.css"]
 })
 export class AdminDashboardComponent implements OnInit {
-
   groupList: any = [];
   showModal: boolean = false;
   showAddModal: boolean = false;
@@ -16,7 +16,10 @@ export class AdminDashboardComponent implements OnInit {
   public userDetails: any = {};
   public newMember: string;
   public newGroupDetail: any = {};
-  constructor(private adminService: AdminService, private storage: StorageService) {}
+  constructor(
+    private adminService: AdminService,
+    private storage: StorageService
+  ) {}
 
   ngOnInit() {
     this.userDetails = this.storage.getUserDetails();
@@ -26,24 +29,42 @@ export class AdminDashboardComponent implements OnInit {
 
   // get admin group list
   getAllGroups() {
-    this.adminService.getAllGroups(this.userDetails.token).subscribe(response => {
-      this.groupList = response;
-    });
+    this.adminService
+      .getAllGroups(this.userDetails.access_token)
+      .subscribe(response => {
+        this.groupList = response;
+        console.log(this.groupList);
+      });
   }
   //Click on edit group
-  editGroup( index: number ) {
+  editGroup(index: number) {
     this.editGoupDetail = this.groupList[index];
     this.showModal = true;
   }
 
   // Remove member
   removeMember(member: string) {
-    this.editGoupDetail.member = this.editGoupDetail.member.filter(x => x !== member);
+    this.editGoupDetail.members = this.editGoupDetail.members.filter(
+      x => x !== member
+    );
+    this.adminService
+      .updateTheGroup(this.userDetails.access_token, this.editGoupDetail)
+      .subscribe(response => {
+        this.editGoupDetail = response;
+        console.log(this.groupList);
+      });
   }
 
   // Adding member
   addMember() {
-    this.editGoupDetail.push(this.newMember);
+    this.editGoupDetail.members.push(this.newMember);
+    this.adminService
+      .updateTheGroup(this.userDetails.access_token, this.editGoupDetail)
+      .subscribe(response => {
+        this.editGoupDetail = response;
+        this.newMember = "";
+        console.log(this.groupList);
+      });
   }
 
   // Hide the edit modal
@@ -55,29 +76,44 @@ export class AdminDashboardComponent implements OnInit {
   // Show add modal
   showaddModal() {
     this.showAddModal = true;
-    this.newGroupDetail.member = [];
+    this.newGroupDetail.members = [];
   }
 
   //on click on edit
   edit() {
     this.showModal = false;
-    this.adminService.updateTheGroup(this.userDetails.token, this.editGoupDetail).subscribe(response => {
-      this.getAllGroups();
-    });
+    this.adminService
+      .updateTheGroup(this.userDetails.access_token, this.editGoupDetail)
+      .subscribe(response => {
+        this.getAllGroups();
+      });
   }
 
   // Delete
   delete(groupName: string) {
     // Should call
-    this.adminService.deleteGroup(this.userDetails.token, groupName).subscribe(response => {
-      this.getAllGroups();
-    });
+    if (confirm("Are you sure to delete the group?")) {
+      this.adminService
+        .deleteGroup(this.userDetails.access_token, groupName)
+        .subscribe(response => {
+          this.getAllGroups();
+        });
+    }
   }
 
   // Add new group
   add() {
-    this.adminService.addGroup(this.userDetails.token, this.newGroupDetail).subscribe(response => {
-      this.getAllGroups();
-    });
+    this.adminService
+      .addGroup(this.userDetails.access_token, this.newGroupDetail)
+      .subscribe(response => {
+        this.showAddModal = false;
+        this.getAllGroups();
+      });
+  }
+
+  // Add member to the newly created group
+  addMemberToNewGrp() {
+    this.newGroupDetail.members.push(this.newMember);
+    this.newMember = "";
   }
 }

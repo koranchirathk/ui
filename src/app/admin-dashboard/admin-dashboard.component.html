@@ -15,12 +15,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let g of groupList; let index = index">
+                <tr *ngFor="let g of groupList; let i = index">
                     <td>{{g.groupName}}</td>
                     <td>{{g.type}}</td>
                     <td>
                         <p (click)="delete(g.groupName)"><a>Delete</a></p>
-                        <p (click)="editGroup(index)"><a>Edit</a></p>
+                        <p (click)="editGroup(i)"><a>Edit</a></p>
                     </td>
                 </tr>
             </tbody>
@@ -29,7 +29,7 @@
     <!-- EDIT MODAL -->
     <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content">+
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -41,8 +41,8 @@
                 <div class="modal-body">
                     <p readonly>Group Name : {{editGoupDetail.groupName}}</p>
                     <p>Type : <input type="text" [(ngModel)]="editGoupDetail.type"></p>
-                    <div *ngFor="let groupMember of editGoupDetail.members; let i = $index">
-                        <input [(ngModel)]="editGoupDetail.members[i]"><span class="delete" (click)="removeMember(groupMember)">X</span>
+                    <div *ngFor="let groupMember of editGoupDetail.members; let j= index ">
+                        <input [(ngModel)]="groupMember" readonly><span class="delete" (click)="removeMember(groupMember)">X</span>
                     </div>
                     <input placeholder="add member" [(ngModel)]="newMember"> <span class="btn-primary add" (click)="addMember()"> Add</span>
                 </div>
@@ -71,12 +71,15 @@
                 <div class="modal-body">
                     <p>Group Name : <input type="text" [(ngModel)]="newGroupDetail.groupName"></p>
                     <p>Type : <input type="text" [(ngModel)]="newGroupDetail.type"></p>
-                    <input placeholder="add member" [(ngModel)]="newMember"> <span class="btn-primary add" (click)="newGroupDetail.member.push(newMember)"> Add</span>
+                    <div *ngFor="let groupMember of newGroupDetail.members; let j= index ">
+                        <input [(ngModel)]="groupMember" readonly>
+                    </div>
+                    <input placeholder="add member" [(ngModel)]="newMember"> <span class="btn-primary add" (click)="addMemberToNewGrp()"> Add</span>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="add()">Edit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="add()">Add</button>
                 </div>
 
             </div>

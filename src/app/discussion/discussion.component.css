@@ -1,0 +1,30 @@
+.card {
+  margin: 20px;
+}
+
+.comment-footer {
+  width: 100%;
+}
+
+.card textarea {
+  display: block;
+  width: 100%;
+  margin: 20px 0px;
+  color: darkblue;
+}
+
+.comment-footer button {
+  float: right;
+}
+
+.list-of-comment {
+  margin: 5px 0px;
+  color: darkblue;
+}
+.discussion-btn {
+  text-align: right;
+  margin-bottom: 20px;
+}
+.title {
+  cursor: pointer;
+}

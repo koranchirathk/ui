@@ -1,27 +1,88 @@
 <section class="section">
-    <app-header></app-header>
-    <div>
-        <h4>Blog</h4>
-        <div *ngFor="let b of blogs; let index = index">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{b.blogTitle}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{b.blogId}}</h6>
-                    <p class="card-text">{{b.body}}</p>
-                    <a class="card-link">Comments</a>
-                    <div class="list-of-comment">
-                        <ul>
-                            <li *ngFor="let c of b.comments">
-                                {{c}}
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="comment-footer">
-                        <textarea [(ngModel)]="b.comment" placeholder="Please Comment Here" required></textarea>
-                        <button class="btn btn-success" (click)="saveComment(index)">Save</button>
-                    </div>
-                </div>
-            </div>
+  <app-header></app-header>
+  <div>
+    <h4>Blog</h4>
+
+    <div *ngIf="isAddBlog">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            Title :
+            <input
+              type="text"
+              [(ngModel)]="blog.blogTitle"
+              placeholder="Title here"
+            />
+          </h5>
+          <p class="card-text">
+            <textarea
+              [(ngModel)]="blog.body"
+              placeholder="Write here"
+            ></textarea>
+          </p>
+          
+          <div class="comment-footer">
+            <button class="btn btn-success" (click)="add()">Add Blog</button>
+          </div>
         </div>
+      </div>
     </div>
+    <div *ngIf="!showBlogDetail && blogs.length > 0">
+      <div class="blog-btn">
+        <button class="btn btn-primary addBlog" (click)="addBlog()">
+          Add Blog
+        </button>
+      </div>
+      <h5>Blog List</h5>
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Author</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let b of blogs; let index = index">
+            <td class="title" (click)="showSelectedBlog(b.blogId)">
+              {{ b.blogTitle }}
+            </td>
+            <td>{{ b.blogAuthor }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="showBlogDetail">
+      <div class="blog-btn">
+        <button class="btn btn-primary back" (click)="showBlogDetail = false">
+          Back
+        </button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ selectedBlog.blogTitle }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ selectedBlog.blogAuthor }}
+          </h6>
+          <p class="card-text">{{ selectedBlog.body }}</p>
+          <a class="card-link">Comments</a>
+          <div class="list-of-comment">
+            <ul>
+              <li *ngFor="let c of selectedBlog.comments">
+                {{ c.detail }} -- {{ c.userId }}
+              </li>
+            </ul>
+          </div>
+          <div class="comment-footer">
+            <textarea
+              [(ngModel)]="comment"
+              placeholder="Please Comment Here"
+              required
+            ></textarea>
+            <button class="btn btn-success" (click)="updateBlog()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

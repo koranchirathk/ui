@@ -1,23 +1,29 @@
 .card {
-    margin: 20px;
+  margin: 20px;
 }
 
 .comment-footer {
-    width: 100%;
+  width: 100%;
 }
 
 .card textarea {
-    display: block;
-    width: 100%;
-    margin: 20px 0px;
-    color: darkblue;
+  display: block;
+  width: 100%;
+  margin: 20px 0px;
+  color: darkblue;
 }
-
+.title {
+  cursor: pointer;
+}
 .comment-footer button {
-    float: right;
+  float: right;
 }
 
 .list-of-comment {
-    margin: 9px 0px;
-    color: darkblue;
+  margin: 5px 0px;
+  color: darkblue;
+}
+.blog-btn {
+  text-align: right;
+  margin-bottom: 20px;
 }

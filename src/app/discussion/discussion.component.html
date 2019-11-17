@@ -1,6 +1,95 @@
 <section class="section discussion">
-    <app-header></app-header>
-    <div>
-        <h4>Discussion Thread</h4>
+  <app-header></app-header>
+  <div>
+    <h4>Discussion Thread</h4>
+  </div>
+  <div *ngIf="!showDiscussionDetail && !isAddDiscussion">
+    <div class="discussion-btn">
+      <button class="btn btn-primary addBlog" (click)="showAddDiscussion()">
+        Start Discussion
+      </button>
     </div>
+    <h5>Discussion List</h5>
+    <table
+      class="table table-border table-stripped"
+      *ngIf="discussions.length > 0"
+    >
+      <thead>
+        <tr>
+          <td>Discussion Topic</td>
+          <td>Creator</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of discussions; let index = index">
+          <td class="title" (click)="getDiscussionById(d.discussionId)">
+            {{ d.discussionTitle }}
+          </td>
+          <td>{{ d.discussionAuthor }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="isAddDiscussion">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          Topic :
+          <input
+            type="text"
+            [(ngModel)]="discussion.discussionTitle"
+            placeholder="Discussion Topic here"
+          />
+        </h5>
+        <p class="card-text">
+          <textarea
+            [(ngModel)]="discussion.body"
+            placeholder="Write here"
+          ></textarea>
+        </p>
+        <div class="comment-footer">
+          <button class="btn btn-success" (click)="addDiscussion()">
+            Post
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showDiscussionDetail">
+    <div class="discussion-btn">
+      <button
+        class="btn btn-primary back"
+        (click)="showDiscussionDetail = false"
+      >
+        Back
+      </button>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ discussionDTO.discussionTitle }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{ discussionDTO.discussionAuthor }}
+        </h6>
+        <p class="card-text">{{ discussionDTO.body }}</p>
+        <a class="card-link">Opinions Posted</a>
+        <div class="list-of-comment">
+          <ul>
+            <li *ngFor="let c of discussionDTO.comments">
+              {{ c.commentDetail }} -- {{ c.userId }}
+            </li>
+          </ul>
+        </div>
+        <div class="comment-footer">
+          <textarea
+            [(ngModel)]="comment"
+            placeholder="Please Comment Here"
+            required
+          ></textarea>
+          <button class="btn btn-success" (click)="updateDiscussion()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

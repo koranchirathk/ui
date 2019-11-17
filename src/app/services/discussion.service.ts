@@ -1,19 +1,19 @@
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
-import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
+import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
 })
-export class BlogService {
+export class DiscussionService {
   apiURL: string = environment.baseUrl;
-  moduleURL = "bog";
+  moduleURL = "discussion";
   constructor(private router: Router, private httpClient: HttpClient) {}
 
-  getAllBlogs(accessToken: string) {
+  getAllDiscussions(accessToken: string) {
     const headers = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -22,11 +22,11 @@ export class BlogService {
     };
 
     return this.httpClient
-      .get(`${this.apiURL}${this.moduleURL}/getallblogs`, headers)
+      .get(`${this.apiURL}${this.moduleURL}/getalldiscussions`, headers)
       .pipe(catchError(this.handleError));
   }
 
-  updateComment(accessToken: string, comment: any) {
+  updateDiscussion(accessToken: string, discussion: any) {
     const headers = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -35,11 +35,15 @@ export class BlogService {
     };
 
     return this.httpClient
-      .post(`${this.apiURL}${this.moduleURL}/addcomment`, comment, headers)
+      .post(
+        `${this.apiURL}${this.moduleURL}/adddiscussioncomment`,
+        discussion,
+        headers
+      )
       .pipe(catchError(this.handleError));
   }
 
-  addBlog(accessToken: string, blogDetails: any) {
+  addDiscussion(accessToken: string, discussion: any) {
     const headers = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -48,10 +52,15 @@ export class BlogService {
     };
 
     return this.httpClient
-      .post(`${this.apiURL}${this.moduleURL}/addblog`, blogDetails, headers)
+      .post(
+        `${this.apiURL}${this.moduleURL}/beginnewdiscussion`,
+        discussion,
+        headers
+      )
       .pipe(catchError(this.handleError));
   }
-  getBlogById(accessToken, id) {
+
+  getDiscussionById(accessToken: string, discussionId: any) {
     const headers = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -60,7 +69,10 @@ export class BlogService {
     };
 
     return this.httpClient
-      .get(`${this.apiURL}${this.moduleURL}/getblogbyId/${id}`, headers)
+      .get(
+        `${this.apiURL}${this.moduleURL}/getdiscussionbyId/${discussionId}`,
+        headers
+      )
       .pipe(catchError(this.handleError));
   }
   handleError(error: any) {
